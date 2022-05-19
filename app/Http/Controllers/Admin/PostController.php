@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -14,7 +15,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        return 'ciao';
+        $posts = Post::orderby('id', 'desc')->paginate(20);
+        return view('admin.index', ['posts' => $posts]);
     }
 
     /**
@@ -41,12 +43,12 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Post $post)
     {
-        //
+        return view('admin.show', ['post' => $post]);
     }
 
     /**
